@@ -4,24 +4,15 @@ class Solution:
         for u , v in edges:
             graph[v].append(u)
             graph[u].append(v)
-        # def dfs(node):
-        #     if node == destination:
-        #         return True
-        #     for nei in graph[node]:
-        #         if dfs(nei):
-        #             return True
-        #     return False
-        # return dfs(start)
         visit = set()
-        q = deque()
-        q.append(source)
-        while q:
-            node = q.popleft()
+        def dfs(node):
+            visit.add(node)
             if node == destination:
                 return True
             for nei in graph[node]:
                 if nei not in visit:
-                    q.append(nei)
-                    visit.add(nei)
-        return False
-
+                    if dfs(nei):
+                        return True
+            return False
+        return dfs(source)
+        
