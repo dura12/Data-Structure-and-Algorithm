@@ -1,12 +1,15 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        l = 0
-        r = len(numbers) - 1
-        while l < r:
-            if numbers[l] + numbers[r] == target:
-                return [l+1,r+1]
-            elif numbers[l] + numbers[r] > target:
-                r -= 1
+        left_pointer = 0
+        right_pointer = len(numbers) - 1
+        while left_pointer < right_pointer:
+            if numbers[left_pointer] + numbers[right_pointer] == target:
+                return [left_pointer + 1 , right_pointer + 1]
+            elif numbers[left_pointer] + numbers[right_pointer] > target:
+                right_pointer -= 1
             else:
-                l += 1
+                left_pointer += 1
         
+
+            
+            
