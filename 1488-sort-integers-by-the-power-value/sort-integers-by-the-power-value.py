@@ -1,19 +1,25 @@
 class Solution:
     def getKth(self, lo: int, hi: int, k: int) -> int:
-        memo = {}
+        memo = {1 : 0}
         heap = []
         def dfs(num):
-            if num in memo:
-                return memo[num]
-            if num == 1:
-                return 0
-            count = 0
-            if num % 2 == 0:
-                count =  1 + dfs(num // 2)
-            if num % 2 != 0:
-                count = 1 + dfs(3*num + 1)
-            memo[num] = count
-            return count
+            stack = [num]
+            while stack:
+                val = stack[-1]
+                if val in memo:
+                    stack.pop()
+                    continue
+                if val % 2 == 0:
+                    next_num = val //2
+                else:
+                    next_num = val * 3 + 1
+                if next_num not in memo:
+                    stack.append(next_num)
+                else:
+                    memo[val] = 1 + memo[next_num]
+                    stack.pop()
+            return memo[num]
+                
         dic = {}
         for i in range(lo , hi + 1):
             count = 0
