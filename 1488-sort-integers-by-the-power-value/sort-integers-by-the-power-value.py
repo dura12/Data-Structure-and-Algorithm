@@ -9,10 +9,7 @@ class Solution:
                 if val in memo:
                     stack.pop()
                     continue
-                if val % 2 == 0:
-                    next_num = val //2
-                else:
-                    next_num = val * 3 + 1
+                next_num = val // 2 if val % 2 == 0 else val*3 + 1
                 if next_num not in memo:
                     stack.append(next_num)
                 else:
@@ -21,19 +18,9 @@ class Solution:
             return memo[num]
                 
         dic = {}
-        for i in range(lo , hi + 1):
-            count = 0
-            if i in memo:
-                count = memo[i]
-            else:
-                count = dfs(i)
-            if len(heap) == k:
-                if heap[0] < (-count , -i):
-                    heappop(heap)
-                    heappush(heap , (-count , -i))
-            else:
-                heappush(heap , (-count , -i))
-        return -heap[0][1]
+        nums = [[dfs(num) , num] for num in range(lo , hi + 1)]
+        nums.sort()
+        return nums[k - 1][1]
 
 
 
