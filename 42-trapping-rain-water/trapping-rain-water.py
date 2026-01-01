@@ -1,17 +1,16 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         stack = []
-        ans = 0
-        height = height[::-1]
-        for i , num in enumerate(height):
-            while stack and height[stack[-1]] <= num:
-                index = stack.pop()
+        res = 0
+    
+        for i in range(len(height)):
+            hei = 0 
+            while stack and stack[-1][0] <= height[i]:
+                prev_height , _ = stack.pop()
                 if stack:
-                    g = min(num , height[stack[-1]]) - height[index]
-                    ans +=  g*(i - stack[-1] - 1)
-            stack.append(i)
-        return ans
-
-
+                    res += (min(height[i],stack[-1][0]) - prev_height)*(i - stack[-1][1] - 1)
+            stack.append([height[i] , i])
+        print(stack)
+        return res
 
 
